@@ -27,11 +27,13 @@ import AddProductForm from '../components/AddProductForm';
 ];
 localStorage.setItem('products', JSON.stringify(products));
 
+const productList = localStorage.getItem('products');
+        const parsedProductlist : product[]= productList ?  JSON.parse(productList) : [];
 const Dashboard = () => {
   return (
     <div>
         <div>
-             {products.map((product) => (
+             {parsedProductlist.map((product) => (
             <div key = {product.id}>
                 <ProductCard product={product}/>
             </div>

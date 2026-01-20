@@ -13,7 +13,9 @@ const AddProductForm = () => {
    
     const onSubmit = (data : any) => {
         const productList = localStorage.getItem('products');
-        const parsedProductlist : product[]= productList ?  JSON.parse('productlist') : [];
+        const parsedProductlist : product[]= productList ?  JSON.parse(productList) : [];
+        const id = parsedProductlist.length > 0 ? Math.max(...parsedProductlist.map(p => p.id)) + 1 : 1;
+        data.id = id;
         parsedProductlist.push(data)
         localStorage.setItem('products',JSON.stringify(parsedProductlist))
         alert('Product added succesfully')
