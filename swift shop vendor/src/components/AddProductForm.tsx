@@ -22,22 +22,23 @@ const AddProductForm = () => {
         reset()
     }
   return (
-    <div>
+    <div className='max-w-md mt-7 p-5 border rounded-lg'>
+        <h3 className='font-bold'>Add New Product:</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <div className='w-full border rounded-lg px-3 py-2'>
             <label htmlFor="name">Product name :</label>
             <input type="text" {...register("name",{ required: 'Product name is required...'})} />
         </div>
 
-        <div>
+        <div className='w-full border rounded-lg px-3 py-2'>
             <label htmlFor="price">Product price :</label>
             <input type="text" {...register("price",{ required: 'Product price is required...',min:{
             value : 1,
             message : 'price cant be zero'
         }})}/>
-        </div>
+        </div >
         
-        <div>
+        <div className='w-full border rounded-lg px-3 py-2'>
             <label htmlFor="stock">Product stock :</label>
             <input type="text" {...register("stock",{ required: 'Product stock is required...'})}/>
         </div>

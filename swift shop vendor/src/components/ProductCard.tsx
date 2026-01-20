@@ -6,13 +6,13 @@ interface ProductCardProps{
 
 const ProductCard : React.FC<ProductCardProps> = ({product}) =>  {
   return (
-    <div>
-      <div>
-        <h2>{product.name}</h2>
-        <h2>{product.price}</h2>
-        <h2>{product.brand}</h2>
-        <button>Add to cart</button>
-      </div>
+    <div className='border rounded-lg p-4 '>
+      
+        <h2 className='text-lg font-bold mb-3'>{product.name}</h2>
+        <h2 className='text-blue-700'>{product.price}</h2>
+        <h2 className='text-blue-700'>{product.brand}</h2>
+        <button className='mt-2 px-4 px-2 bg-blue-200'>Add to cart</button>
+       
     </div>
   )
 }

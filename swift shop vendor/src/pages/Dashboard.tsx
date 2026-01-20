@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import type {product} from '../product'
 import ProductCard from '../components/ProductCard';
 import AddProductForm from '../components/AddProductForm';
+import Navbar from '../components/Navbar';
 
 
   const products : product[] = [{
@@ -26,11 +27,11 @@ import AddProductForm from '../components/AddProductForm';
     stock : 0
 },
 ];
-const [items, setItems] = useState<product[]>([])
 
 
+const Dashboard = () => {
 
-
+    const [items, setItems] = useState<product[]>([])
 useEffect (() => {
 const productList = localStorage.getItem('products');
 const parsedProductlist : product[]= productList ?  JSON.parse(productList) : [];
@@ -40,16 +41,15 @@ setItems(parsedProductlist);
 useEffect(() => {
     localStorage.setItem('products', JSON.stringify(products));
 },[items])
-
-const Dashboard = () => {
   return (
-    <div>
+    <div className='bg-blue'>
+        <Navbar/>
         <div>
             <ul>
                 {items.map((product) => (
                 <div key = {product.id}>
                     <ProductCard product={product}/>
-                 </div>
+                </div>
             ))} 
             </ul>
             
