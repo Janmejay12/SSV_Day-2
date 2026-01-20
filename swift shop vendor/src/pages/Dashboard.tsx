@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import type {product} from '../product'
 import ProductCard from '../components/ProductCard';
 import AddProductForm from '../components/AddProductForm';
+
 
   const products : product[] = [{
     name : "Trekking Shoes",
@@ -25,19 +26,33 @@ import AddProductForm from '../components/AddProductForm';
     stock : 0
 },
 ];
-localStorage.setItem('products', JSON.stringify(products));
+const [items, setItems] = useState<product[]>([])
 
+
+
+
+useEffect (() => {
 const productList = localStorage.getItem('products');
-        const parsedProductlist : product[]= productList ?  JSON.parse(productList) : [];
+const parsedProductlist : product[]= productList ?  JSON.parse(productList) : [];
+setItems(parsedProductlist);
+},[])
+
+useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products));
+},[items])
+
 const Dashboard = () => {
   return (
     <div>
         <div>
-             {parsedProductlist.map((product) => (
-            <div key = {product.id}>
-                <ProductCard product={product}/>
-            </div>
-            ))}
+            <ul>
+                {items.map((product) => (
+                <div key = {product.id}>
+                    <ProductCard product={product}/>
+                 </div>
+            ))} 
+            </ul>
+            
         </div>
      <AddProductForm/>
     </div>
