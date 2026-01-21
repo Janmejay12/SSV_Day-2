@@ -6,14 +6,14 @@ interface cartItem {
 }
     export const CartContext = createContext<any>(null)
 
-const cartProvider = ({children} : {children:React.ReactNode}) => {
+const CartProvider = ({children} : {children:React.ReactNode}) => {
     const [cartItems,setCartIems] = useState<cartItem[]>(() =>{
       const stored = localStorage.getItem('cartItems')
       return stored ? JSON.parse(stored) : [];
     })
 
     useEffect(() => {
-      localStorage.setItem("cartItem", JSON.stringify(cartItems))
+      localStorage.setItem("cartItems", JSON.stringify(cartItems))
     },[cartItems])
 
     const addToCart = (item : cartItem) => {
@@ -36,4 +36,4 @@ const cartProvider = ({children} : {children:React.ReactNode}) => {
   )
 }
 
-export default cartProvider;
+export default CartProvider;
