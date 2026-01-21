@@ -30,7 +30,7 @@ const CategoryDropdown = () => {
                 <option value="">All</option>
 
                 {categories.map((category) => (
-                  <option key={category} value="category.name">{category}</option>
+                  <option key={category} value="category">{category}</option>
                   
                 ))}
 

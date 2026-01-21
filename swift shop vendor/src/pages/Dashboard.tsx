@@ -15,6 +15,9 @@ const Dashboard = () => {
     const [products, setProducts] = useState<product[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [isError, setIsError] = useState<boolean>(false)
+    const [search, setSearch] = useState<string>('')
+    const [filtered, setFiltered] = useState<product[]>([])
+
 
 useEffect (() => {
     const getProducts = async () =>{
@@ -42,9 +45,19 @@ useEffect (() => {
    
 },[])
 
-// useEffect(() => {
-//     localStorage.setItem('products', JSON.stringify(products));
-// },[products])
+useEffect(() => {
+    if (search === '') {
+            setFiltered(products);
+        }
+        else{
+            let data = [...products]
+            data = data.filter((p) => {
+           return p.title.toLowerCase().includes(search.toLowerCase())
+    })
+    setFiltered(data)
+        }
+   
+},[search, products])
 
     if(isLoading){
         return <p>Products Loading</p>
@@ -61,9 +74,16 @@ useEffect (() => {
     <div className='bg-blue'>
         <Navbar/>
         <div>
+             <form>
+                <input
+                    placeholder="Search for..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </form>
             <CategoryDropdown/>
             <ul>
-                {products && products.map((product) => (
+                {filtered.map((product) => (
                 <div key = {product.id}>
                     <ProductCard product={product}/>
                 </div>
