@@ -3,6 +3,8 @@ import type {product} from '../product'
 import ProductCard from '../components/ProductCard';
 import AddProductForm from '../components/AddProductForm';
 import Navbar from '../components/Navbar';
+import Category from '../components/CategoryDropdown';
+import CategoryDropdown from '../components/CategoryDropdown';
 
 
 
@@ -20,9 +22,13 @@ useEffect (() => {
             const response = await fetch('https://dummyjson.com/products')
             if(!response.ok){
             setIsError(true);
+            setIsLoading(false)
+            return
             }
-            const parsedProductlist : product[] = await response.json() 
-            setProducts(parsedProductlist);
+            else{
+            const data : product[] = await response.json() 
+            setProducts(data.products);
+            }
         }
         catch{
             setIsError(true)
@@ -31,7 +37,7 @@ useEffect (() => {
             setIsLoading(false)
         }
         
-    }
+    }   
     getProducts();
    
 },[])
@@ -40,29 +46,26 @@ useEffect (() => {
 //     localStorage.setItem('products', JSON.stringify(products));
 // },[products])
 
-    // if(isLoading){
-    //     return <p>Products Loading</p>
-    // }
+    if(isLoading){
+        return <p>Products Loading</p>
+    }
 
-    //  if(isError){
-    //     return <p>Error fetching products</p>
-    // }
-    // if(products.length === 0){
-    //     return <p>No products found</p>
-    // }
-
-
-
+     if(isError){
+        return <p>Error fetching products</p>
+    }
+    if(Array.isArray(products) && products.length === 0){
+        return <p>No products found</p>
+    }
 
   return (
     <div className='bg-blue'>
         <Navbar/>
         <div>
+            <CategoryDropdown/>
             <ul>
                 {products && products.map((product) => (
                 <div key = {product.id}>
-                    {product.name}
-                    {/* <ProductCard product={product}/> */}
+                    <ProductCard product={product}/>
                 </div>
             ))} 
             </ul>
